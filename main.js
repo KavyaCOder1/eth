@@ -4,7 +4,7 @@ const { enter, leave } = Stage
 const stage = new Stage()
 const Web3 = require('web3')
 
-const rateLimit = require('telegraf-ratelimit');
+
 const mongo = require('mongodb').MongoClient;
 const axios = require('axios')
 const { token , admins , mongo_url } = require('./details')
@@ -65,19 +65,7 @@ function senderr(e){
     }
 }
 
-const buttonsLimit = {
-    window: 1000,
-    limit: 1,
-    onLimitExceeded: (ctx, next) => {
-      if ('callback_query' in ctx.update)
-      ctx.answerCbQuery('😅 Please Dont Press Buttons Quikly , Try Again...', true)
-        .catch((err) => sendError(err, ctx))
-    },
-    keyGenerator: (ctx) => {
-      return ctx.callbackQuery ? true : false
-    }
-  }
-  bot.use(rateLimit(buttonsLimit))
+
 
 bot.use(session())
 bot.use(stage.middleware())
@@ -513,7 +501,7 @@ bot.hears('🏧 Withdrawal',async (ctx) =>{
     }
     let mini = admin[0].mini
     if (parseFloat(bal) < parseFloat(mini)){
-        ctx.replyWithHTML('<b><i>⚠️ You need to refer at least 3 more users to be eligible for claim</i></b>\n\n<i>The withdrawal will be  transferred to your wallet Instantly at least 300000 '+admin[0].cur+' to Withdraw.</i>')
+        ctx.replyWithHTML('<b><i>⚠️ You need to refer at least 2 more users to be eligible for claim</i></b>\n\n<i>The withdrawal will be  transferred to your wallet Instantly at least 80000 '+admin[0].cur+' to Withdraw.</i>')
         return
     }
         if (!('wallet' in data[0])){
